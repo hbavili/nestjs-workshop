@@ -14,8 +14,7 @@ export class User {
   @Column()
   password: string;
 
-
   @ManyToMany(() => Role)
-  @JoinTable()
+  @JoinTable({ name:'user_roles' })
   roles: Role[];
 }

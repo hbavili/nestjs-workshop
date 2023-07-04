@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.entity';
+import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
@@ -11,7 +11,7 @@ import { AccountModule } from './account/account.module';
 import { ProjectModule } from './project/project.module';
 import { Account } from './account/entities/account.entity';
 import { Project } from './project/entities/project.entity';
-import { Role } from './users/role.entity';
+import { Role } from './users/entities/role.entity';
 
 @Module({
   imports: [
