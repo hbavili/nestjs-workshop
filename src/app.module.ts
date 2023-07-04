@@ -7,6 +7,10 @@ import { User } from './users/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { AccountModule } from './account/account.module';
+import { ProjectModule } from './project/project.module';
+import { Account } from './account/entities/account.entity';
+import { Project } from './project/entities/project.entity';
 
 @Module({
   imports: [
@@ -17,11 +21,13 @@ import { APP_GUARD } from '@nestjs/core';
       username: 'test',
       password: 'test',
       database: 'test',
-      entities: [User],
+      entities: [User, Account, Project],
       synchronize: true,
     }),
     UsersModule,
     AuthModule,
+    AccountModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [

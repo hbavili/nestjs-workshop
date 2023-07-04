@@ -3,6 +3,7 @@ import { UsersService } from "./users.service";
 import { User } from "./user.entity";
 import { CreateUserDto } from "./dto/createUser.dto";
 import { UpdateUserDto } from "./dto/updateUser.dto";
+import { Public } from "src/auth/auth.guard";
 
 
 @Controller('users')
@@ -10,6 +11,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @Public()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
