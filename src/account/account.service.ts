@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from './entities/account.entity';
 import { Repository } from 'typeorm';
 
-
 @Injectable()
 export class AccountService {
   constructor(
@@ -17,20 +16,19 @@ export class AccountService {
     return this.accountRepository.save(account);
   }
 
-  async findAll(): Promise<Account[]> {
-    return this.accountRepository.find();
+  findAll() {
+    return this.accountRepository.find({ relations: ['projects'] });
   }
 
-  async getById(id: number): Promise<Account> {
-    return this.accountRepository.findOne({ where: { id: id } });
+  findOne(id: number) {
+    return `This action returns a #${id} account`;
   }
 
-  async update(id: number, updateAccountDto: UpdateAccountDto): Promise<Account> {
-    await this.accountRepository.update(id, updateAccountDto);
-    return this.accountRepository.findOne({ where: { id: id } });
+  update(id: number, updateAccountDto: UpdateAccountDto) {
+    return `This action updates a #${id} account`;
   }
 
-  async delete(id: number): Promise<void> {
-    await this.accountRepository.delete(id);
+  remove(id: number) {
+    return `This action removes a #${id} account`;
   }
 }

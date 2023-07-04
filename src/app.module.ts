@@ -11,6 +11,7 @@ import { AccountModule } from './account/account.module';
 import { ProjectModule } from './project/project.module';
 import { Account } from './account/entities/account.entity';
 import { Project } from './project/entities/project.entity';
+import { Role } from './users/role.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { Project } from './project/entities/project.entity';
       username: 'test',
       password: 'test',
       database: 'test',
-      entities: [User, Account, Project],
+      entities: [User, Account, Project, Role],
       synchronize: true,
     }),
     UsersModule,
