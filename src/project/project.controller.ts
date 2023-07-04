@@ -2,8 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 @Controller('project')
+@ApiTags('Project')
+@ApiBearerAuth()
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
@@ -19,7 +22,7 @@ export class ProjectController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.projectService.findOne(+id);
+    return this.projectService.getById(+id);
   }
 
   @Patch(':id')
@@ -29,6 +32,6 @@ export class ProjectController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.projectService.remove(+id);
+    return this.projectService.delete(+id);
   }
 }

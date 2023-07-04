@@ -1,11 +1,13 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { UpdateProjectDto } from "../project/dto/update-project.dto";
 
 @Controller('account')
 @ApiBearerAuth()
+@ApiTags('Account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
@@ -21,16 +23,16 @@ export class AccountController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.accountService.findOne(+id);
+    return this.accountService.getById(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
-    return this.accountService.update(+id, updateAccountDto);
+  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+    return this.accountService.update(+id, updateProjectDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.accountService.remove(+id);
+    return this.accountService.delete(+id);
   }
 }
