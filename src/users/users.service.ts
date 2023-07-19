@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -20,12 +20,15 @@ export class UsersService {
     const role = await this.roleRepo.find({
       where: { name: createUserDto.role },
     });
+    if(!role || role.length === 0){
+      throw new NotFoundException('role is not found')
+    }
     const user = this.userRepo.create({ ...createUserDto, roles: role });
     return this.userRepo.save(user);
   }
 
   async getById(id: number): Promise<User> {
-    return this.userRepo.findOne({ where: { id: id } });
+    return this.userRepo.findOne({ where: { id: id }, relations: ['roles'] });
   }
   async getByEmail(email: string): Promise<User> {
     return this.userRepo.findOne({
@@ -33,6 +36,7 @@ export class UsersService {
       relations: ['roles'],
     });
   }
+
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     await this.userRepo.update(id, updateUserDto);

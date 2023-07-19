@@ -12,6 +12,7 @@ import { ProjectModule } from './project/project.module';
 import { Account } from './account/entities/account.entity';
 import { Project } from './project/entities/project.entity';
 import { Role } from './users/entities/role.entity';
+import { RolesGuard } from "./auth/roles.guard";
 
 @Module({
   imports: [
@@ -36,6 +37,10 @@ import { Role } from './users/entities/role.entity';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })

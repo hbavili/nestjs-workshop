@@ -6,6 +6,5 @@ export class Role {
   id: number;
 
   @Column()
-
   name: string;
 }
